@@ -1,11 +1,22 @@
-import { Dashboard, Login, Error } from './pages';
+import { Dashboard, Login, Error, PrivateRoute, AuthWrapper } from './pages';
+import { Route, Routes } from 'react-router-dom';
 const App = () => {
   return (
-    <div>
-      <Dashboard></Dashboard>
-      <Login />
-      <Error />
-    </div>
+    <AuthWrapper>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
+
+        <Route path="login" element={<Login />} />
+        <Route path="*" element={<Error />} />
+      </Routes>
+    </AuthWrapper>
   );
 };
 
